@@ -31,8 +31,6 @@ body {
 }
 
 .square {
-    width: 20%;
-    height: 20%;
     border: 1px solid black;
 }
 
@@ -44,7 +42,7 @@ body {
     background-color: slategray;
 }
 
-.button-container button {
+.reset-button {
     background-color:navajowhite;
     height: 50px;
     width: 300px;
