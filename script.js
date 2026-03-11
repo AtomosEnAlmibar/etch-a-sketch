@@ -3,28 +3,40 @@ const containerElement = document.querySelector(".container");
 const resetButton = document.querySelector(".reset-button");
 resetButton.addEventListener("click", resetGrid);
 createGrid();
+containerElement.addEventListener("click", paintSquare);
 
 function createGrid() {
     const totalSquares = gridWidthHeight ** 2;
     const squareWidthHeight = 100 / gridWidthHeight;
     for (let index = 0; index < totalSquares; index++) {
         const square = document.createElement("div");
+        const backgroundSquare = document.createElement("div");
+        const colorSquare = document.createElement("div");
 
         square.classList.add("square");
-        square.classList.add("inactive");
+        backgroundSquare.classList.add("inactive");
+        colorSquare.classList.add("active");
         square.style.width = `${squareWidthHeight}%`;
         square.style.height = `${squareWidthHeight}%`;
- 
+        colorSquare.style.backgroundColor = getRandomColor();
+
+        square.appendChild(backgroundSquare);
+        square.appendChild(colorSquare);
         containerElement.appendChild(square);
     }
 
-    containerElement.addEventListener("mouseover", paintSquare);
 }
 
+function getRandomColor() {
+    return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+}
+
+
 function paintSquare(square) {
-    if (!square.target.classList.contains('square')) return;
-    square.target.classList.remove("inactive");
-    square.target.classList.add("active");
+    if (!square.target.classList.contains('active')) return;
+    if (window.getComputedStyle(square.target).opacity > 0) {
+        square.target.style.opacity = window.getComputedStyle(square.target).opacity - 0.1;
+    }
 }
 
 function resetGrid() {
